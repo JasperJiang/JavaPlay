@@ -1,0 +1,13 @@
+#Collections
+
+##DelayMain
+
+DelayQueue是java.util.concurrent中提供的一个很有意思的类。本文将会对DelayQueue做一个介绍，然后列举应用场景。并且提供一个Delayed接口的实现和 Sample 代码。
+
+DelayQueue是一个无界的BlockingQueue，用于放置实现了Delayed接口的对象，其中的对象只能在其到期时才能从队列中取走。这种队列是有序的，即队头对象的延迟到期时间最长。注意：不能将null元素放置到这种队列中。
+
+Delayed，一种混合风格的接口，用来标记那些应该在给定延迟时间之后执行的对象。Delayed扩展了Comparable接口，比较的基准为延时的时间值，Delayed接口的实现类getDelay的返回值应为固定值（final）。DelayQueue内部是使用PriorityQueue实现的。
+
+Delayed接口的官方注释，意思是：一个混合风格的接口，为创建给定延迟的任务。（翻译的不太好，请纠正）；其中有两个重要的方法compareTo和getDelay，第一个是比较两个任务的延迟时间进行排序，第二个方法用来获取延迟时间。
+
+priorityQueue是一种优先级队列，这里优先级就是延迟时间，也就是说进入队列的任务安装优先级进行排序，延迟时间最短的在队列前面，先被处理，也就是说，每次从队列中取出的任务都将是到期的任务。比如我们实现一个缓存，当某个key-value对超期了，我们就可以从队列前取出，然后进行销毁操作。
